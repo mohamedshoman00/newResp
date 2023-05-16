@@ -52,6 +52,7 @@ const items = [
   "item48",
   "item49",
   "item50",
+  "item51",
 ];
 const personNames = [
   "Chris M",
@@ -211,7 +212,6 @@ const imgs = [
   "img4.webp",
   "img5.webp",
 ];
-const colors = ["#fe58a1", "#005100", "#d5c22b", "#25e6dc", "#0064ff"];
 const min = 0;
 const max = 70;
 let previousItem = null;
@@ -226,39 +226,98 @@ let firstImgB = true;
 items.forEach((item, index) => {
   const li = document.createElement("li");
   const h2 = document.createElement("h2");
-  const headingText = document.createTextNode(`${personNames[index]}`);
+  const headingText = document.createTextNode(
+    `${index + 1} ${personNames[index]}`
+  );
   const p = document.createElement("p");
   const pText = document.createTextNode(personTitle[index]);
   li.classList.add(`item${index + 1}`);
   li.setAttribute("data-id", `${index}`);
   if (index === 0) li.classList.add("active");
+  if (index === 49) li.style.cssText = "margin-top:10px;";
   // li.style.cssText = `left: ${index === 0 ? `0` : `50*(index+1)`}px`;
   h2.appendChild(headingText);
   p.appendChild(pText);
+  p.style.cssText = `color: gray;`;
   li.appendChild(h2);
   li.appendChild(p);
   ulList.append(li);
 });
 
-// ulList.addEventListener("wheel", (event) => {
-//   // event.preventDefault();
-//   // ulList.scrollLeft += event.deltaY;
-//   const active = document.querySelector("ul .active");
-//   console.log(active);
-//   if (active) {
-//     const next = active.nextElementSibling;
-//     listItems.forEach((e) => e.classList.remove("active"));
-//     next.classList.add("active");
-//     console.log(next);
-//     if (next) {
-//       ulList.scrollTo({
-//         left: next.offset,
-//         behavior: "smooth",
-//       });
-//     }
-//   }
-// });
-// let x = 700;
+ulList.addEventListener("wheel", function (event) {
+  let activeElement = document.querySelector(".active");
+  console.log(activeElement);
+  let currentEle = document.querySelector(".active");
+  console.log(event.deltaY);
+  if (Number(currentEle.getAttribute("data-id")) < 48) {
+    ulList.scrollLeft += event.deltaY;
+  }
+  if (event.deltaY > 0) {
+    let randomColor = Math.floor(Math.random() * 5);
+    const nextEle = currentEle.nextElementSibling;
+    const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
+    const randomNumber2 = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log(nextEle.getAttribute("data-id"));
+    if (nextEle && Number(nextEle.getAttribute("data-id")) < 50) {
+      console.log(nextEle);
+      listItems.forEach((e) => {
+        e.classList.remove("active");
+        e.style.cssText = "background-color:#000;";
+      });
+      currentEle.classList.remove("active");
+      nextEle.classList.add("active");
+      currentEle = nextEle;
+      nextEle.style.cssText = `background-color: #fff;`;
+      /////
+      const i = Number(currentEle.getAttribute("data-id"));
+      console.log(randomNumber1, randomNumber2);
+      const img = document.createElement("img");
+      img.src = `./images/${imgs[i]}`;
+      img.alt = `img ${i + 1}`;
+      img.setAttribute("data-id", `${i}`);
+      img.classList.add("animate-image");
+      img.style.cssText = `top:${randomNumber1}px; left:${randomNumber1}px; right:${randomNumber2}px;bottom:${randomNumber2}px;`;
+      imageContent.appendChild(img);
+      ///
+      ulList.scrollBy({
+        left: currentEle.getBoundingClientRect().x - 800,
+        behavior: "smooth",
+      });
+    }
+  } else {
+    let randomColor = Math.floor(Math.random() * 5);
+    const prevEle = currentEle.previousElementSibling;
+    const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
+    const randomNumber2 = Math.floor(Math.random() * (max - min + 1)) + min;
+    if (prevEle) {
+      console.log(prevEle);
+      listItems.forEach((e) => {
+        e.classList.remove("active");
+        e.style.cssText = "background-color:#000;";
+      });
+      currentEle.classList.remove("active");
+      prevEle.classList.add("active");
+      currentEle = prevEle;
+      currentEle.style.cssText = `background-color: #fff;`;
+      //////////////
+      const i = Number(currentEle.getAttribute("data-id"));
+      console.log(randomNumber1, randomNumber2);
+      const img = document.createElement("img");
+      img.src = `./images/${imgs[i]}`;
+      img.alt = `img ${i + 1}`;
+      img.setAttribute("data-id", `${i}`);
+      img.classList.add("animate-image");
+      img.style.cssText = `top:${randomNumber1}px; left:${randomNumber1}px; right:${randomNumber2}px;bottom:${randomNumber2}px;`;
+      imageContent.appendChild(img);
+      /////////////
+      ulList.scrollBy({
+        left: currentEle.getBoundingClientRect().x - 800,
+        behavior: "smooth",
+      });
+    }
+  }
+});
+/////////////////////////////////////
 const listItems = document.querySelectorAll(".ul-list li");
 ulList.addEventListener("click", (event) => {
   const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -290,12 +349,12 @@ ulList.addEventListener("click", (event) => {
         e.style.cssText = "background-color:#000;";
       });
       currentEle.classList.add("active");
-      currentEle.style.cssText = `background-color: ${colors[randomColor]};`;
+      currentEle.style.cssText = `background-color: #fff;`;
     }
     previousItem = currentEle;
     console.log(currentEle.getBoundingClientRect());
     ulList.scrollBy({
-      left: currentEle.getBoundingClientRect().x - 720,
+      left: currentEle.getBoundingClientRect().x - 800,
       behavior: "smooth",
     });
 
