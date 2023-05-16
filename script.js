@@ -214,6 +214,8 @@ const imgs = [
 ];
 const min = 0;
 const max = 70;
+// var x = window.matchMedia("(max-width:991px)");
+// console.log(x);
 let previousItem = null;
 const firstImg = document.createElement("img");
 firstImg.src = `./images/${imgs[0]}`;
@@ -223,6 +225,7 @@ firstImg.classList.add("animate-image");
 firstImg.style;
 imageContent.appendChild(firstImg);
 let firstImgB = true;
+// create lis of the list
 items.forEach((item, index) => {
   const li = document.createElement("li");
   const h2 = document.createElement("h2");
@@ -235,7 +238,6 @@ items.forEach((item, index) => {
   li.setAttribute("data-id", `${index}`);
   if (index === 0) li.classList.add("active");
   if (index === 49) li.style.cssText = "margin-top:10px;";
-  // li.style.cssText = `left: ${index === 0 ? `0` : `50*(index+1)`}px`;
   h2.appendChild(headingText);
   p.appendChild(pText);
   p.style.cssText = `color: gray;`;
@@ -243,14 +245,26 @@ items.forEach((item, index) => {
   li.appendChild(p);
   ulList.append(li);
 });
-
+//////////////////////////////////////////////////////////
+// Scrolling Event Handler
 ulList.addEventListener("wheel", function (event) {
+  event.preventDefault();
+  let mobileWindow = window.matchMedia("(max-width:765px)");
+  console.log(mobileWindow);
+  let smallWindow = window.matchMedia("(max-width:991px)");
+  let scrollVar = smallWindow.matches ? 600 : 790;
+  console.log(smallWindow);
   let activeElement = document.querySelector(".active");
   console.log(activeElement);
   let currentEle = document.querySelector(".active");
   console.log(event.deltaY);
   if (Number(currentEle.getAttribute("data-id")) < 48) {
-    ulList.scrollLeft += event.deltaY;
+    if (mobileWindow.matches) {
+      ulList.scrollTop += event.deltaY;
+      console.log(event);
+    } else {
+      ulList.scrollLeft += event.deltaY;
+    }
   }
   if (event.deltaY > 0) {
     let randomColor = Math.floor(Math.random() * 5);
@@ -268,7 +282,7 @@ ulList.addEventListener("wheel", function (event) {
       nextEle.classList.add("active");
       currentEle = nextEle;
       nextEle.style.cssText = `background-color: #fff;`;
-      /////
+      //////////////////////
       const i = Number(currentEle.getAttribute("data-id"));
       console.log(randomNumber1, randomNumber2);
       const img = document.createElement("img");
@@ -276,16 +290,25 @@ ulList.addEventListener("wheel", function (event) {
       img.alt = `img ${i + 1}`;
       img.setAttribute("data-id", `${i}`);
       img.classList.add("animate-image");
-      img.style.cssText = `top:${randomNumber1}px; left:${randomNumber1}px; right:${randomNumber2}px;bottom:${randomNumber2}px;`;
+      img.style.cssText = `top:${randomNumber1}px; left:${randomNumber1}px; right:${randomNumber2}px; bottom:${randomNumber2}px;`;
       imageContent.appendChild(img);
-      ///
-      ulList.scrollBy({
-        left: currentEle.getBoundingClientRect().x - 800,
-        behavior: "smooth",
-      });
+      ///600 , 800
+      if (mobileWindow.matches) {
+        ulList.scrollBy({
+          top: currentEle.getBoundingClientRect().y - 400,
+          // top: 120,
+          behavior: "smooth",
+        });
+        console.log("True");
+        console.log(currentEle.getBoundingClientRect());
+      } else {
+        ulList.scrollBy({
+          left: currentEle.getBoundingClientRect().x - scrollVar,
+          behavior: "smooth",
+        });
+      }
     }
   } else {
-    let randomColor = Math.floor(Math.random() * 5);
     const prevEle = currentEle.previousElementSibling;
     const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
     const randomNumber2 = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -310,19 +333,32 @@ ulList.addEventListener("wheel", function (event) {
       img.style.cssText = `top:${randomNumber1}px; left:${randomNumber1}px; right:${randomNumber2}px;bottom:${randomNumber2}px;`;
       imageContent.appendChild(img);
       /////////////
-      ulList.scrollBy({
-        left: currentEle.getBoundingClientRect().x - 800,
-        behavior: "smooth",
-      });
+      if (mobileWindow.matches) {
+        ulList.scrollBy({
+          top: currentEle.getBoundingClientRect().y - 400,
+          // top: 120,
+          behavior: "smooth",
+        });
+        console.log("True");
+        console.log(currentEle.getBoundingClientRect());
+      } else {
+        ulList.scrollBy({
+          left: currentEle.getBoundingClientRect().x - scrollVar,
+          behavior: "smooth",
+        });
+      }
     }
   }
 });
-/////////////////////////////////////
+//////////////////////////////////////////////////////////
+// Click Event Handler
 const listItems = document.querySelectorAll(".ul-list li");
 ulList.addEventListener("click", (event) => {
+  let mobileWindow = window.matchMedia("(max-width:765px)");
+  let smallWindow = window.matchMedia("(max-width:991px)");
+  let scrollVar = smallWindow.matches ? 600 : 790;
   const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
   const randomNumber2 = Math.floor(Math.random() * (max - min + 1)) + min;
-  let randomColor = Math.floor(Math.random() * 5);
   const currentEle = event.target.closest("li");
   if (currentEle) {
     if (currentEle === previousItem) {
@@ -352,14 +388,23 @@ ulList.addEventListener("click", (event) => {
       currentEle.style.cssText = `background-color: #fff;`;
     }
     previousItem = currentEle;
-    console.log(currentEle.getBoundingClientRect());
-    ulList.scrollBy({
-      left: currentEle.getBoundingClientRect().x - 800,
-      behavior: "smooth",
-    });
-
-    // listParent.style.cssText = `left: ${x <= 0 ? 0 : x}px;`;
-    // x -= 60;
-    // listParent.console.log(listParent);
+    if (mobileWindow.matches) {
+      ulList.scrollBy({
+        top: currentEle.getBoundingClientRect().y - 400,
+        behavior: "smooth",
+      });
+      console.log("True");
+      console.log(currentEle.getBoundingClientRect());
+    } else {
+      ulList.scrollBy({
+        left: currentEle.getBoundingClientRect().x - scrollVar,
+        behavior: "smooth",
+      });
+    }
+    // ulList.scrollBy({
+    //   left: currentEle.getBoundingClientRect().x - scrollVar,
+    //   behavior: "smooth",
+    // });
   }
 });
+/////////////////////////////////////////////////////////
