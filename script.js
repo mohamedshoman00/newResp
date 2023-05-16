@@ -287,7 +287,7 @@ ulList.addEventListener("click", (event) => {
       console.log(activeEle);
       listItems.forEach((e) => {
         e.classList.remove("active");
-        e.style.cssText = "background-color:#3700c8;";
+        e.style.cssText = "background-color:#000;";
       });
       currentEle.classList.add("active");
       currentEle.style.cssText = `background-color: ${colors[randomColor]};`;
