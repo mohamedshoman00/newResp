@@ -260,7 +260,7 @@ ulList.addEventListener("wheel", function (event) {
   // console.log(event.deltaY);
   if (Number(currentEle.getAttribute("data-id")) < 48) {
     if (mobileWindow.matches) {
-      ulList.scrollTop += event.deltaY;
+      // ulList.scrollTop += event.deltaY;
       // console.log(event);
     } else {
       ulList.scrollLeft += event.deltaY;
@@ -335,7 +335,6 @@ ulList.addEventListener("wheel", function (event) {
       if (mobileWindow.matches) {
         ulList.scrollBy({
           top: currentEle.getBoundingClientRect().y - 400,
-          // top: 120,
           behavior: "smooth",
         });
         // console.log("True");
