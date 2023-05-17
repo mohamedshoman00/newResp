@@ -248,7 +248,7 @@ items.forEach((item, index) => {
 //////////////////////////////////////////////////////////
 // Scrolling Event Handler
 ulList.addEventListener("wheel", function (event) {
-  // event.preventDefault();
+  event.preventDefault();
   let mobileWindow = window.matchMedia("(max-width:765px)");
   // console.log(mobileWindow);
   let smallWindow = window.matchMedia("(max-width:991px)");
@@ -260,7 +260,7 @@ ulList.addEventListener("wheel", function (event) {
   // console.log(event.deltaY);
   if (Number(currentEle.getAttribute("data-id")) < 48) {
     if (mobileWindow.matches) {
-      // ulList.scrollTop += event.deltaY;
+      ulList.scrollTop += event.deltaY;
       // console.log(event);
     } else {
       ulList.scrollLeft += event.deltaY;
