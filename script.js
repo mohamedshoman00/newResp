@@ -248,20 +248,20 @@ items.forEach((item, index) => {
 //////////////////////////////////////////////////////////
 // Scrolling Event Handler
 ulList.addEventListener("wheel", function (event) {
-  event.preventDefault();
+  // event.preventDefault();
   let mobileWindow = window.matchMedia("(max-width:765px)");
-  console.log(mobileWindow);
+  // console.log(mobileWindow);
   let smallWindow = window.matchMedia("(max-width:991px)");
   let scrollVar = smallWindow.matches ? 600 : 790;
-  console.log(smallWindow);
+  // console.log(smallWindow);
   let activeElement = document.querySelector(".active");
-  console.log(activeElement);
+  // console.log(activeElement);
   let currentEle = document.querySelector(".active");
-  console.log(event.deltaY);
+  // console.log(event.deltaY);
   if (Number(currentEle.getAttribute("data-id")) < 48) {
     if (mobileWindow.matches) {
       ulList.scrollTop += event.deltaY;
-      console.log(event);
+      // console.log(event);
     } else {
       ulList.scrollLeft += event.deltaY;
     }
@@ -271,9 +271,9 @@ ulList.addEventListener("wheel", function (event) {
     const nextEle = currentEle.nextElementSibling;
     const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
     const randomNumber2 = Math.floor(Math.random() * (max - min + 1)) + min;
-    console.log(nextEle.getAttribute("data-id"));
+    // console.log(nextEle.getAttribute("data-id"));
     if (nextEle && Number(nextEle.getAttribute("data-id")) < 50) {
-      console.log(nextEle);
+      // console.log(nextEle);
       listItems.forEach((e) => {
         e.classList.remove("active");
         e.style.cssText = "background-color:#000;";
@@ -284,7 +284,7 @@ ulList.addEventListener("wheel", function (event) {
       nextEle.style.cssText = `background-color: #fff;`;
       //////////////////////
       const i = Number(currentEle.getAttribute("data-id"));
-      console.log(randomNumber1, randomNumber2);
+      // console.log(randomNumber1, randomNumber2);
       const img = document.createElement("img");
       img.src = `./images/${imgs[i]}`;
       img.alt = `img ${i + 1}`;
@@ -299,8 +299,8 @@ ulList.addEventListener("wheel", function (event) {
           // top: 120,
           behavior: "smooth",
         });
-        console.log("True");
-        console.log(currentEle.getBoundingClientRect());
+        // console.log("True");
+        // console.log(currentEle.getBoundingClientRect());
       } else {
         ulList.scrollBy({
           left: currentEle.getBoundingClientRect().x - scrollVar,
@@ -313,7 +313,6 @@ ulList.addEventListener("wheel", function (event) {
     const randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
     const randomNumber2 = Math.floor(Math.random() * (max - min + 1)) + min;
     if (prevEle) {
-      console.log(prevEle);
       listItems.forEach((e) => {
         e.classList.remove("active");
         e.style.cssText = "background-color:#000;";
@@ -324,7 +323,7 @@ ulList.addEventListener("wheel", function (event) {
       currentEle.style.cssText = `background-color: #fff;`;
       //////////////
       const i = Number(currentEle.getAttribute("data-id"));
-      console.log(randomNumber1, randomNumber2);
+      // console.log(randomNumber1, randomNumber2);
       const img = document.createElement("img");
       img.src = `./images/${imgs[i]}`;
       img.alt = `img ${i + 1}`;
@@ -339,8 +338,8 @@ ulList.addEventListener("wheel", function (event) {
           // top: 120,
           behavior: "smooth",
         });
-        console.log("True");
-        console.log(currentEle.getBoundingClientRect());
+        // console.log("True");
+        // console.log(currentEle.getBoundingClientRect());
       } else {
         ulList.scrollBy({
           left: currentEle.getBoundingClientRect().x - scrollVar,
@@ -370,7 +369,7 @@ ulList.addEventListener("click", (event) => {
       firstImgB = false;
     } else {
       const i = Number(currentEle.getAttribute("data-id"));
-      console.log(randomNumber1, randomNumber2);
+      // console.log(randomNumber1, randomNumber2);
       const img = document.createElement("img");
       img.src = `./images/${imgs[i]}`;
       img.alt = `img ${i + 1}`;
@@ -379,7 +378,7 @@ ulList.addEventListener("click", (event) => {
       img.style.cssText = `top:${randomNumber1}px; left:${randomNumber1}px; right:${randomNumber2}px;bottom:${randomNumber2}px;`;
       imageContent.appendChild(img);
       const activeEle = document.querySelector(".active");
-      console.log(activeEle);
+      // console.log(activeEle);
       listItems.forEach((e) => {
         e.classList.remove("active");
         e.style.cssText = "background-color:#000;";
@@ -393,8 +392,7 @@ ulList.addEventListener("click", (event) => {
         top: currentEle.getBoundingClientRect().y - 400,
         behavior: "smooth",
       });
-      console.log("True");
-      console.log(currentEle.getBoundingClientRect());
+      // console.log(currentEle.getBoundingClientRect());
     } else {
       ulList.scrollBy({
         left: currentEle.getBoundingClientRect().x - scrollVar,
